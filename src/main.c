@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:09:01 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/01 14:19:50 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/01 16:36:18 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ int	key_events(int keycode, t_game *game)
 	}
 	if (keycode == 13)
 	{
-		if(map[(int)(posX + dirX)][(int)posY] == 0) 
-			posX += dirX;
-		if(map[(int)posX][(int)(posY + dirY)] == 0)
-			posY += dirY;
+		if(map[(int)(posX + dirX * 0.5f)][(int)posY] == 0) 
+			posX += dirX * 0.5f;
+		if(map[(int)posX][(int)(posY + dirY * 0.5f)] == 0)
+			posY += dirY * 0.5f;
 	}
 	if (keycode == 1)
 	{
-		if(map[(int)(posX - dirX)][(int)posY] == 0)
-			posX -= dirX;
-		if(map[(int)(posX)][(int)(posY - dirY)] == 0)
-			posY -= dirY;
+		if(map[(int)(posX - dirX * 0.5f)][(int)posY] == 0)
+			posX -= dirX * 0.5f;
+		if(map[(int)(posX)][(int)(posY - dirY * 0.5f)] == 0)
+			posY -= dirY * 0.5f;
 	}
 	if (keycode == 3)
 		planeY -= 0.1;
@@ -81,12 +81,6 @@ void	init_all(t_game *game)
 
 int	update(t_game *game)
 {
-	// oncelikler resmin taminini siyaha boyuyoruz.
-	for (int y = 0; y < screenWidth; y++)
-	{
-		for(int x = 0; x < screenHeight; x++)
-			game->image->addr[y * screenHeight + x] = 0x000000;
-	}
 	for(int x = 0; x < screenWidth; x++)
 	{
 		//ışın konumunu ve yönünü hesaplama
@@ -122,10 +116,12 @@ int	update(t_game *game)
 		else
 			deltaDistY = fabs(1 / rayDirY);
 		double perpWallDist;
-		//what direction to step in x or y-direction (either +1 or -1)
+		//x veya y yönünde hangi yönde adım atılacağı bulunur(+1 veya -1)
 		int stepX;
 		int stepY;
-		int hit = 0; //was there a wall hit?
+		bool hit;
+		
+		hit = false; //ray'in duvara carpip carpmadigini kontrol eder.
 		int side; //was a NS or a EW wall hit?
 		//calculate step and initial sideDist
 		if(rayDirX < 0)
@@ -149,7 +145,7 @@ int	update(t_game *game)
 			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 		}
 		//perform DDA
-		while(hit == 0)
+		while(!hit)
 		{
 			//jump to next map square, either in x-direction, or in y-direction
 			if(sideDistX < sideDistY)
@@ -166,7 +162,7 @@ int	update(t_game *game)
 			}
 			//Check if ray has hit a wall
 			if(map[mapX][mapY] > 0)
-				hit = 1;
+				hit = true;
 		}
 
 		//Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
@@ -211,17 +207,26 @@ int	update(t_game *game)
 		//choose wall color
 		//give x and y sides different brightness
 		//draw the pixels of the stripe as a vertical line
-		for (int i = 0; i < drawStart; i++)
-			game->image->addr[i * screenWidth + x] = 0x33ffff;
-		for (int y = drawStart; y < drawEnd; y++)
+		// for (int i = 0; i < drawStart; i++)
+			// game->image->addr[i * screenWidth + x] = 0x33ffff;
+		for (int y = 0; y < screenHeight; y++)
 		{
 			int texY = (int)texPos & (texHeight - 1);
-			texPos += step;
-			unsigned int color = game->wall->addr[texHeight * texY + texX];
+			unsigned int color;
+			if (y < drawStart)
+				color = 0x33ffff;
+			else if (y > drawEnd)
+				color = 0x17F662;
+			else
+			{
+				if (side == 0)
+					color = game->wall->addr[texHeight * texY + texX];
+				else
+					color = game->brick->addr[texHeight * texY + texX];
+				texPos += step;
+			}
 			game->image->addr[y * screenWidth + x] = color;
 		}
-		for (int i = drawEnd; i < screenWidth; i++)
-			game->image->addr[i * screenWidth + x] = 0x17F662;
 	}
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 }
