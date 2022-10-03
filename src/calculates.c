@@ -1,5 +1,4 @@
 #include "../include/cub3d.h"
-
 void	calculate_ray(t_game *game, int x)
 {
 	//x veya y yönünde hangi yönde adım atılacağı bulunur(+1 veya -1)
@@ -80,14 +79,17 @@ void	calculate_textures(t_game *game, int side)
 
 void	hit_check(t_game *game, int *side, int stepx, int stepy)
 {
+	char *str;
 	while(1)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
+		//printf("side_distX : %f\n side_distY : %f\n", game->ray->side_distx, game->ray->side_disty);
 		if(game->ray->side_distx < game->ray->side_disty)
 		{
 			game->ray->side_distx += game->ray->delta_distx;
 			game->ray->mapx += stepx;
 			*side = 0;
+			can = 0;
 		}
 		else
 		{
@@ -99,6 +101,8 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 		if(map[game->ray->mapx][game->ray->mapy] > 0)
 			break;
 	}
+	//printf("---------------\nside : %i\n", *side);
+	//exit(0);
 /* 		Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 		hit to the camera plane. Euclidean to center camera point would give fisheye effect!
 		This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y

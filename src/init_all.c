@@ -15,13 +15,13 @@ void	init_mlx(t_game *game)
 void	init_player_data(t_game *game)
 {
 	game->pdata = malloc(sizeof(t_player));
-	game->pdata->pos_x = 3;
-	game->pdata->pos_y = 3;
+	game->pdata->pos_x = 10;
+	game->pdata->pos_y = 13;
 	game->pdata->dir_x = -1;
 	game->pdata->dir_y = 0;
 	game->pdata->plane_x = 0;
 	game->pdata->plane_y = 3.14159 / 4.0;
-	game->pdata->rot_speed = 0.5f;
+	game->pdata->rot_speed = 0.03f;
 }
 
 void	init_ray_data(t_game *game)
@@ -57,27 +57,16 @@ void	init_draw_data(t_game *game)
 
 void	init_textures(t_game *game)
 {
-	int	a;
+	
+}
 
-	game->tex = malloc(sizeof(t_textures));
-	game->tex->ea = malloc(sizeof(t_data));
-	game->tex->we = malloc(sizeof(t_data));
-	game->tex->no = malloc(sizeof(t_data));
-	game->tex->so = malloc(sizeof(t_data));
-	game->tex->no->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/brick.xpm", &a, &a);
-	game->tex->so->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/eagle.xpm", &a, &a);
-	game->tex->ea->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/wood.xpm", &a, &a);
-	game->tex->we->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/colorstone.xpm", &a, &a);
-	game->tex->ea->addr =  (int *)mlx_get_data_addr(game->tex->ea->img, &a, &a, &a);
-	game->tex->we->addr =  (int *)mlx_get_data_addr(game->tex->we->img, &a, &a, &a);
-	game->tex->no->addr =  (int *)mlx_get_data_addr(game->tex->ea->img, &a, &a, &a);
-	game->tex->so->addr =  (int *)mlx_get_data_addr(game->tex->so->img, &a, &a, &a);
-	game->tex->ceilingc = 0x17F662;
-	game->tex->floorc = 0x33ffff;
+void	init_keys(t_game *game)
+{
+	game->keys = malloc(sizeof(t_keyboard));
+	game->keys->left_key = false;
+	game->keys->right_key = false;
+	game->keys->w_key = false;
+	game->keys->s_key = false;
 }
 
 void	init_all(t_game *game)
@@ -87,4 +76,5 @@ void	init_all(t_game *game)
 	init_ray_data(game);
 	init_draw_data(game);
 	init_textures(game);
+	init_keys(game);
 }

@@ -3,17 +3,27 @@
 void	free_all(t_game *game)
 {
 	free(game->draw);
+	free(game->image);
+	free(game->keys);
 	free(game->pdata);
 	free(game->ray);
+	free(game->tex->ea->addr);
+	free(game->tex->no->addr);
+	free(game->tex->so->addr);
+	free(game->tex->we->addr);
+	free(game->tex->ea->img);
+	free(game->tex->no->img);
+	free(game->tex->so->img);
+	free(game->tex->we->img);
 	free(game->tex);
 }
 
-void	rotate_cam(int keycode, t_game *game)
+void	rotate_cam(t_game *game)
 {
 	double oldDirX;
 	double oldPlaneX;
 
-	if (keycode == 0)
+	if (game->keys->left_key)
 	{
 		oldDirX = game->pdata->dir_x;
 		game->pdata->dir_x = game->pdata->dir_x * cos(game->pdata->rot_speed)- game->pdata->dir_y * sin(game->pdata->rot_speed);
@@ -22,7 +32,7 @@ void	rotate_cam(int keycode, t_game *game)
 		game->pdata->plane_x = game->pdata->plane_x * cos(game->pdata->rot_speed) - game->pdata->plane_y * sin(game->pdata->rot_speed);
 		game->pdata->plane_y = oldPlaneX * sin(game->pdata->rot_speed) + game->pdata->plane_y * cos(game->pdata->rot_speed);
 	}
-	if (keycode == 2)
+	if (game->keys->right_key)
 	{
 		oldDirX = game->pdata->dir_x;
 		game->pdata->dir_x = game->pdata->dir_x * cos(-game->pdata->rot_speed) - game->pdata->dir_y * sin(-game->pdata->rot_speed);
@@ -33,9 +43,8 @@ void	rotate_cam(int keycode, t_game *game)
 	}
 }
 
-int	key_events(int keycode, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
-	rotate_cam(keycode, game);
 	if (keycode == 53)
 	{
 		mlx_destroy_window(game->mlx, game->window);
@@ -43,18 +52,43 @@ int	key_events(int keycode, t_game *game)
 		exit(0);
 	}
 	if (keycode == 13)
-	{
-		if(map[(int)(game->pdata->pos_x + game->pdata->dir_x * 0.5f)][(int)game->pdata->pos_y] == 0)
-			game->pdata->pos_x += game->pdata->dir_x * 0.5f;
-		if(map[(int)game->pdata->pos_x][(int)(game->pdata->pos_y + game->pdata->dir_y * 0.5f)] == 0)
-			game->pdata->pos_y += game->pdata->dir_y * 0.5f;
-	}
+		game->keys->w_key = true;
 	if (keycode == 1)
-	{
-		if(map[(int)(game->pdata->pos_x - game->pdata->dir_x * 0.5f)][(int)game->pdata->pos_y] == 0)
-			game->pdata->pos_x -= game->pdata->dir_x * 0.5f;
-		if(map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * 0.5f)] == 0)
-			game->pdata->pos_y -= game->pdata->dir_y * 0.5f;
-	}
+		game->keys->s_key = true;
+	if (keycode == 123)
+		game->keys->left_key = true;
+	if (keycode == 124)
+		game->keys->right_key = true;
 	return (0);
+}
+
+int	key_release(int keycode, t_game *game)
+{
+	if (keycode == 13)
+		game->keys->w_key = false;
+	if (keycode == 1)
+		game->keys->s_key = false;
+	if (keycode == 123)
+		game->keys->left_key = false;
+	if (keycode == 124)
+		game->keys->right_key = false;
+}
+
+void	movements(t_game *game)
+{
+	rotate_cam(game);
+	if (game->keys->w_key)
+	{
+		if(map[(int)(game->pdata->pos_x + game->pdata->dir_x * 0.1f)][(int)game->pdata->pos_y] == 0)
+			game->pdata->pos_x += game->pdata->dir_x * 0.1f;
+		if(map[(int)game->pdata->pos_x][(int)(game->pdata->pos_y + game->pdata->dir_y * 0.1f)] == 0)
+			game->pdata->pos_y += game->pdata->dir_y * 0.1f;
+	}
+	if (game->keys->s_key)
+	{
+		if(map[(int)(game->pdata->pos_x - game->pdata->dir_x * 0.1f)][(int)game->pdata->pos_y] == 0)
+			game->pdata->pos_x -= game->pdata->dir_x * 0.1f;
+		if(map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * 0.1f)] == 0)
+			game->pdata->pos_y -= game->pdata->dir_y * 0.1f;
+	}
 }

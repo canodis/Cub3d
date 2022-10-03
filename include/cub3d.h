@@ -15,6 +15,8 @@
 # define mapWidth 24
 # define mapHeight 24
 
+int can;
+
 extern int map[mapWidth][mapHeight];
 
 typedef struct	s_data {
@@ -72,6 +74,14 @@ typedef struct s_textures
 	unsigned int	ceilingc;
 }	t_textures;
 
+typedef struct s_keyboard
+{
+	bool	left_key;
+	bool	right_key;
+	bool	w_key;
+	bool	s_key;
+}	t_keyboard;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -81,17 +91,24 @@ typedef struct s_game
 	t_ray		*ray;
 	t_draw_data	*draw;
 	t_textures	*tex;
+	t_keyboard	*keys;
+	char		**map;
 }	t_game;
 
 
 
 void	init_all(t_game *game);
-int		key_events(int keycode, t_game *game);
+int		key_press(int keycode, t_game *game);
 int		update(t_game *game);
 void	hit_check(t_game *game, int *side, int stepx, int stepy);
 void	calculate_textures(t_game *game, int side);
 void	calculate_pixels(t_game *game);
 void	calculate_steps(t_game *game, int *step_x, int *step_y);
 void	calculate_ray(t_game *game, int x);
-
+int		key_release(int keycode, t_game *game);
+void	movements(t_game *game);
+char	*ft_str_join(char *left_str, char *buff);
+void	free_2d_array(char **ptr);
+int		no_blank_len(char **str);
+int		find_double_array_len(char **s);
 #endif

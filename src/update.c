@@ -11,15 +11,20 @@ void	draw_vertical(t_game *game, int x, int side)
 	{
 		game->draw->tex_y = (int)game->draw->tex_pos & (game->draw->tex_h - 1);
 		if (y < game->draw->draw_s)
-			game->draw->color = 0x33ffff;
+			game->draw->color = game->tex->ceilingc;
 		else if (y > game->draw->draw_e)
-			game->draw->color = 0x17F662;
+			game->draw->color = game->tex->floorc;
 		else
 		{
-			if (side == 0)
+			if (side == 0 && game->ray->ray_dirx < 0)
 				game->draw->color = game->tex->ea->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
-			else
+			else if (side == 0 && game->ray->ray_dirx >= 0)
 				game->draw->color = game->tex->so->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+			if (side == 1 && game->ray->ray_diry < 0)
+				game->draw->color = game->tex->no->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+			else if (side == 1 && game->ray->ray_diry >= 0)
+				game->draw->color = game->tex->we->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+
 			game->draw->tex_pos += game->draw->step;
 		}
 			game->image->addr[y * screenWidth + x] = game->draw->color;
@@ -34,6 +39,7 @@ int	update(t_game *game)
 	int		side;
 
 	x = -1;
+	movements(game);
 	while(++x < screenWidth)
 	{
 		calculate_ray(game, x);
