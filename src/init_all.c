@@ -15,13 +15,14 @@ void	init_mlx(t_game *game)
 void	init_player_data(t_game *game)
 {
 	game->pdata = malloc(sizeof(t_player));
-	game->pdata->pos_x = 10;
-	game->pdata->pos_y = 13;
+	game->pdata->pos_x = 4;
+	game->pdata->pos_y = 5;
 	game->pdata->dir_x = -1;
 	game->pdata->dir_y = 0;
 	game->pdata->plane_x = 0;
 	game->pdata->plane_y = 3.14159 / 4.0;
 	game->pdata->rot_speed = 0.03f;
+	game->pdata->speed = 0.05f;
 }
 
 void	init_ray_data(t_game *game)
@@ -75,6 +76,7 @@ void	init_keys(t_game *game)
 	game->keys->right_key = false;
 	game->keys->w_key = false;
 	game->keys->s_key = false;
+	game->keys->shift_key = false;
 }
 
 void	init_all(t_game *game)

@@ -1,6 +1,6 @@
 #include "../include/cub3d.h"
 
-void *convert_xpm(t_game *game, char *path)
+void	*convert_xpm(t_game *game, char *path)
 {
 	int	rand;
 
@@ -32,7 +32,7 @@ char *ft_read_map(int fd)
 
 bool	anything(char *s1, char *s2)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(s1) - ft_strlen(s2);
 	if (len > 0)
@@ -55,10 +55,10 @@ bool	anything(char *s1, char *s2)
 			len++;
 		}
 	}
-	return (true);	
+	return (true);
 }
 
-bool	check_walls(t_game *game, int x, int y, char **str)
+bool    check_walls(t_game *game, int x, int y, char **str)
 {
 	while (++y < find_double_array_len(str))
 	{
@@ -66,7 +66,7 @@ bool	check_walls(t_game *game, int x, int y, char **str)
 		while (++x < ft_strlen(str[y]))
 		{
 			if (str[y][x] == ' ')
-				x++;
+				continue;
 			else if (str[y][x] != '1' && (y == 0 || y == ft_strlen(str[y]) - 1))
 				ft_exit("walss ilk if");
 			else if (str[y][x] != '1' && (x == 0 || x == ft_strlen(str[y]) - 1))
@@ -87,7 +87,6 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 
 	idx = 0;
 	result = malloc(sizeof(char) * no_blank_len(str) + 1);
-	check_walls(game, -1, -1, str);
 	while (++(*y) < find_double_array_len(str))
 	{
 		x = -1;
@@ -99,7 +98,6 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 			{
 				result[idx] = '\0';
 				return (result);
-				ft_exit("sarp");
 			}
 			result[idx++] = str[*y][x];
 		}
@@ -110,9 +108,9 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 	return (result);
 }
 
-void	get_adress(t_game *game)
+void    get_adress(t_game *game)
 {
-	int	a;
+	int    a;
 
 	game->tex->ea->addr =  (int *)mlx_get_data_addr(game->tex->ea->img, &a, &a, &a);
 	game->tex->we->addr =  (int *)mlx_get_data_addr(game->tex->we->img, &a, &a, &a);
@@ -120,13 +118,13 @@ void	get_adress(t_game *game)
 	game->tex->so->addr =  (int *)mlx_get_data_addr(game->tex->so->img, &a, &a, &a);
 }
 
-void	map_inspection(char *str, int idx, int idy, t_game *game)
+void    map_inspection(char *str, int idx, int idy, t_game *game)
 {
-	char	**double_input;
-	char	**split;
-	int		y;
-	char	*temp;
-	int		map_y;
+	char    **double_input;
+	char    **split;
+	int        y;
+	char    *temp;
+	int        map_y;
 
 	y = -1;
 	double_input = ft_split(str, '\n');
@@ -149,10 +147,11 @@ void	map_inspection(char *str, int idx, int idy, t_game *game)
 		else if (split[0][0] >= '0' && split[0][0] <= '9' && y == -1)
 		{
 			temp = fill_map(&double_input[idy], -1, &y, game);
-			game->map = ft_split(ft_strdup(temp), '\n');
+			game->map = ft_split(temp, '\n');
 			free(temp);
+			check_walls(game, -1, -1, game->map);
 			y = 0;
-		}	
+		}
 		if (split || split[0])
 			free_2d_array(split);
 	}
@@ -175,9 +174,5 @@ bool	check_map(t_game *game, char *str)
 	map_inspection(map, 0, -1, game);
 	close(fd);
 	free(map);
-	int a = find_double_array_len(game->map);
-	for (int i = 0 ;i < a; i++)
-		printf("%s\n", game->map[i]);
-	exit(5666);
 	return (0);
 }

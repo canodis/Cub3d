@@ -6,12 +6,11 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 12:37:10 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/04 12:46:47 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/04 13:51:12 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
+#include "../include/cub3d.h"
 static int	count_words(const char *str, char c)
 {
 	int i;
@@ -53,8 +52,9 @@ char		**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	if (!s || !(split = malloc((count_words(s, c) + 1) * sizeof(char *))))
-		return (0);
+	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!split)
+		exit(0);
 	i = 0;
 	j = 0;
 	index = -1;

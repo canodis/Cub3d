@@ -24,13 +24,14 @@ typedef struct	s_data {
 
 typedef struct s_Player
 {
-	double pos_x;
-	double pos_y;
-	double dir_x;
-	double dir_y;
-	double plane_x;
-	double plane_y;
-	float rot_speed;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	float	rot_speed;
+	float	speed;
 }	t_player;
 
 typedef struct s_ray
@@ -78,6 +79,7 @@ typedef struct s_keyboard
 	bool	right_key;
 	bool	w_key;
 	bool	s_key;
+	bool	shift_key;
 }	t_keyboard;
 
 typedef struct s_game
@@ -111,5 +113,6 @@ int		no_blank_len(char **str);
 int		find_double_array_len(char **s);
 bool	check_map(t_game *game, char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+char		**ft_split(char const *s, char c);
 
 #endif
