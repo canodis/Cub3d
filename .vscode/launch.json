@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug",
             "program": "/Users/rtosun/Desktop/Cub3dd/cub3d",
-            "args": [],
+            "args": ["maps/1.cub"],
             "cwd": "${workspaceFolder}"
         }
     ]

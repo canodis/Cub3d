@@ -20,7 +20,7 @@ char	*ft_str_join(char *left_str, char *buff)
 	while (buff[j])
 		str[i++] = buff[j++];
 	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
-	free(left_str);
+	//free(left_str);
 	return (str);
 }
 
@@ -67,4 +67,18 @@ int	no_blank_len(char **str)
 		}
 	}
 	return (res);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while ((s1[i]) && (s2[i]))
+	{
+		if (s1[i] != s2[i])
+			break;
+		i++;
+	}
+	return ((const unsigned char)s1[i] - (const unsigned char)s2[i]);
 }

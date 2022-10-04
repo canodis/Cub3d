@@ -57,7 +57,15 @@ void	init_draw_data(t_game *game)
 
 void	init_textures(t_game *game)
 {
-	
+	game->tex = malloc(sizeof(t_textures));
+	game->tex->ea = malloc(sizeof(t_data));
+	game->tex->we = malloc(sizeof(t_data));
+	game->tex->no = malloc(sizeof(t_data));
+	game->tex->so = malloc(sizeof(t_data));
+	game->tex->ea->addr = NULL;
+	game->tex->we->addr = NULL;
+	game->tex->no->addr = NULL;
+	game->tex->so->addr = NULL;
 }
 
 void	init_keys(t_game *game)

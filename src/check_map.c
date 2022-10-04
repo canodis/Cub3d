@@ -7,6 +7,12 @@ void *convert_xpm(t_game *game, char *path)
 	return (mlx_xpm_file_to_image((game)->mlx, path, &rand, &rand));
 }
 
+void	ft_exit(char *str)
+{
+	printf("%s",str);
+	exit(1);
+}
+
 char *ft_read_map(int fd)
 {
 	int		rd_bytes;
@@ -65,7 +71,7 @@ bool	check_walls(t_game *game, int x, int y, char **str)
 				ft_exit("walss ilk if");
 			else if (str[y][x] != '1' && (x == 0 || x == ft_strlen(str[y]) - 1))
 				ft_exit("walls second if");
-			else if (!ft_strchr("NSEW01", str[y][x]))
+			else if (!ft_strchr("NSEW012", str[y][x]))
 				ft_exit("onje walls");
 			else if (str[y + 1] && !anything(str[y], str[y + 1]))
 				ft_exit("anything");
@@ -89,10 +95,11 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 		{
 			if (str[*y][x] == ' ')
 				continue;
-			else if (!ft_strchr("NSEW01", str[*y][x]))
+			else if (!ft_strchr("NSEW012", str[*y][x]))
 			{
 				result[idx] = '\0';
 				return (result);
+				ft_exit("sarp");
 			}
 			result[idx++] = str[*y][x];
 		}
@@ -142,28 +149,15 @@ void	map_inspection(char *str, int idx, int idy, t_game *game)
 		else if (split[0][0] >= '0' && split[0][0] <= '9' && y == -1)
 		{
 			temp = fill_map(&double_input[idy], -1, &y, game);
-			game->map = ft_split(temp, '\n');
+			game->map = ft_split(ft_strdup(temp), '\n');
 			free(temp);
 			y = 0;
-		}
-		free_2d_array(split);
+		}	
+		if (split || split[0])
+			free_2d_array(split);
 	}
 	free_2d_array(double_input);
 	get_adress(game);
-}
-
-void	init_info(t_game *game)
-{
-	int a;
-
-	game->tex = malloc(sizeof(t_textures));
-	game->tex->ea = malloc(sizeof(t_data));
-	game->tex->we = malloc(sizeof(t_data));
-	game->tex->no = malloc(sizeof(t_data));
-	game->tex->so = malloc(sizeof(t_data));
-	
-	game->tex->ceilingc = 0x17F662;
-	game->tex->floorc = 0x33ffff;
 }
 
 bool	check_map(t_game *game, char *str)
@@ -173,10 +167,17 @@ bool	check_map(t_game *game, char *str)
 
 	fd = open(str, O_RDWR);
 	if (fd <= 0)
-		ft_exit("open error");
+	{
+		printf("yanlis map ismi !");
+		exit(0);
+	}
 	map = ft_read_map(fd);
-	init_info(game);
 	map_inspection(map, 0, -1, game);
 	close(fd);
 	free(map);
+	int a = find_double_array_len(game->map);
+	for (int i = 0 ;i < a; i++)
+		printf("%s\n", game->map[i]);
+	exit(5666);
+	return (0);
 }

@@ -15,9 +15,7 @@
 # define mapWidth 24
 # define mapHeight 24
 
-int can;
-
-extern int map[mapWidth][mapHeight];
+extern char **map;
 
 typedef struct	s_data {
 	void	*img;
@@ -111,4 +109,7 @@ char	*ft_str_join(char *left_str, char *buff);
 void	free_2d_array(char **ptr);
 int		no_blank_len(char **str);
 int		find_double_array_len(char **s);
+bool	check_map(t_game *game, char *str);
+int		ft_strcmp(const char *s1, const char *s2);
+
 #endif

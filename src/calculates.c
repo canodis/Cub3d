@@ -89,7 +89,6 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 			game->ray->side_distx += game->ray->delta_distx;
 			game->ray->mapx += stepx;
 			*side = 0;
-			can = 0;
 		}
 		else
 		{
@@ -98,7 +97,7 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 			*side = 1;
 		}
 		//Check if ray has hit a wall
-		if(map[game->ray->mapx][game->ray->mapy] > 0)
+		if(game->map[game->ray->mapx][game->ray->mapy] > 48)
 			break;
 	}
 	//printf("---------------\nside : %i\n", *side);
