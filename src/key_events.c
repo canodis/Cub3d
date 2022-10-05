@@ -43,6 +43,22 @@ void	rotate_cam(t_game *game)
 	}
 }
 
+void get_screenshot(t_game *game)
+{
+	int fd = open("screenShot", O_CREAT, O_RDWR | 0777);
+	dup2(fd, 1);
+	for (int y = 0; y < screenHeight; y++)
+	{
+		for (int x = 0; x < screenWidth; x++)
+		{
+			printf("%i", game->image->addr[y * screenWidth + x]);
+		}
+		printf("\n");
+	}
+	close(fd);
+	printf("bitti"); 
+}
+
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == 53)
@@ -65,6 +81,8 @@ int	key_press(int keycode, t_game *game)
 		game->keys->a_key = true;
 	if (keycode == 2)
 		game->keys->d_key = true;
+	if (keycode == 5)
+		get_screenshot(game);
 	return (0);
 }
 

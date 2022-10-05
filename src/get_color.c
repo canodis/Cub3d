@@ -40,7 +40,7 @@ char	*double_str_join(char **str)
 	int		idx;
 	char	*res;
 
-	res = "";
+	res = malloc(1);
 	idx = 0;
 	while (*(str + idx))
 	{

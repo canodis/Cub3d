@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/05 13:18:01 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/05 13:35:50 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	init_mlx(t_game *game)
 void	init_player_data(t_game *game)
 {
 	game->pdata = malloc(sizeof(t_player));
-	game->pdata->pos_x = 1;
-	game->pdata->pos_y = 1;
+	game->pdata->pos_x = 2;
+	game->pdata->pos_y = 2;
 	game->pdata->dir_x = -1;
 	game->pdata->dir_y = 0;
 	game->pdata->plane_x = 0;
