@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/05 13:18:01 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	init_mlx(t_game *game)
@@ -15,8 +27,8 @@ void	init_mlx(t_game *game)
 void	init_player_data(t_game *game)
 {
 	game->pdata = malloc(sizeof(t_player));
-	game->pdata->pos_x = 4;
-	game->pdata->pos_y = 5;
+	game->pdata->pos_x = 1;
+	game->pdata->pos_y = 1;
 	game->pdata->dir_x = -1;
 	game->pdata->dir_y = 0;
 	game->pdata->plane_x = 0;
@@ -54,29 +66,6 @@ void	init_draw_data(t_game *game)
 	game->draw->wall_x = 0;
 	game->draw->tex_h = 64;
 	game->draw->tex_w = 64;
-}
-
-void	init_textures(t_game *game)
-{
-	game->tex = malloc(sizeof(t_textures));
-	game->tex->ea = malloc(sizeof(t_data));
-	game->tex->we = malloc(sizeof(t_data));
-	game->tex->no = malloc(sizeof(t_data));
-	game->tex->so = malloc(sizeof(t_data));
-	game->tex->ea->addr = NULL;
-	game->tex->we->addr = NULL;
-	game->tex->no->addr = NULL;
-	game->tex->so->addr = NULL;
-}
-
-void	init_keys(t_game *game)
-{
-	game->keys = malloc(sizeof(t_keyboard));
-	game->keys->left_key = false;
-	game->keys->right_key = false;
-	game->keys->w_key = false;
-	game->keys->s_key = false;
-	game->keys->shift_key = false;
 }
 
 void	init_all(t_game *game)

@@ -61,6 +61,10 @@ int	key_press(int keycode, t_game *game)
 		game->keys->right_key = true;
 	if (keycode == 49)
 		game->keys->shift_key = true;
+	if (keycode == 0)
+		game->keys->a_key = true;
+	if (keycode == 2)
+		game->keys->d_key = true;
 	return (0);
 }
 
@@ -76,6 +80,10 @@ int	key_release(int keycode, t_game *game)
 		game->keys->right_key = false;
 	if (keycode == 49)
 		game->keys->shift_key = false;
+	if (keycode == 0)
+		game->keys->a_key = false;
+	if (keycode == 2)
+		game->keys->d_key = false;
 	return (0);
 }
 
@@ -95,6 +103,16 @@ void	movements(t_game *game)
 			game->pdata->pos_x -= game->pdata->dir_x * game->pdata->speed;
 		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
 			game->pdata->pos_y -= game->pdata->dir_y * game->pdata->speed;
+	}
+	if (game->keys->a_key)
+	{
+		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
+			game->pdata->pos_y -= game->pdata->speed;
+	}
+	if (game->keys->d_key)
+	{
+		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
+			game->pdata->pos_y += game->pdata->speed;
 	}
 	if (game->keys->shift_key)
 		game->pdata->speed = 0.1f;

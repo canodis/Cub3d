@@ -79,6 +79,8 @@ typedef struct s_keyboard
 	bool	right_key;
 	bool	w_key;
 	bool	s_key;
+	bool	a_key;
+	bool	d_key;
 	bool	shift_key;
 }	t_keyboard;
 
@@ -113,6 +115,9 @@ int		no_blank_len(char **str);
 int		find_double_array_len(char **s);
 bool	check_map(t_game *game, char *str);
 int		ft_strcmp(const char *s1, const char *s2);
-char		**ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c);
+int		get_color(char *str);
+void	init_keys(t_game *game);
+void	init_textures(t_game *game);
 
 #endif

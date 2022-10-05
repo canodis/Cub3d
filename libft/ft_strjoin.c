@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtosun <rtosun@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 11:27:43 by rtosun            #+#    #+#             */
-/*   Updated: 2022/02/04 16:46:19 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/05 12:24:28 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+#include "libft.h"
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dizi;
 	size_t	len;
@@ -35,5 +35,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	dizi[i] = '\0';
+	free(s1);
 	return (dizi);
 }

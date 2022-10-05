@@ -1,9 +1,10 @@
 #include "../include/cub3d.h"
 
-void	*convert_xpm(t_game *game, char *path)
+void	*convert_xpm(t_game *game, char *path, void *free_item1)
 {
 	int	rand;
 
+	free(free_item1);
 	return (mlx_xpm_file_to_image((game)->mlx, path, &rand, &rand));
 }
 
@@ -58,7 +59,7 @@ bool	anything(char *s1, char *s2)
 	return (true);
 }
 
-bool    check_walls(t_game *game, int x, int y, char **str)
+bool	check_walls(t_game *game, int x, int y, char **str)
 {
 	while (++y < find_double_array_len(str))
 	{
@@ -108,9 +109,9 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 	return (result);
 }
 
-void    get_adress(t_game *game)
+void	get_adress(t_game *game)
 {
-	int    a;
+	int	a;
 
 	game->tex->ea->addr =  (int *)mlx_get_data_addr(game->tex->ea->img, &a, &a, &a);
 	game->tex->we->addr =  (int *)mlx_get_data_addr(game->tex->we->img, &a, &a, &a);
@@ -118,13 +119,13 @@ void    get_adress(t_game *game)
 	game->tex->so->addr =  (int *)mlx_get_data_addr(game->tex->so->img, &a, &a, &a);
 }
 
-void    map_inspection(char *str, int idx, int idy, t_game *game)
+void	map_inspection(char *str, int idx, int idy, t_game *game)
 {
-	char    **double_input;
-	char    **split;
-	int        y;
-	char    *temp;
-	int        map_y;
+	char	**double_input;
+	char	**split;
+	int		y;
+	char	*temp;
+	int		map_y;
 
 	y = -1;
 	double_input = ft_split(str, '\n');
@@ -133,17 +134,17 @@ void    map_inspection(char *str, int idx, int idy, t_game *game)
 	{
 		split = ft_split(double_input[idy], ' ');
 		if (!ft_strcmp(split[0], "NO") && split[1])
-			game->tex->no->img = convert_xpm(game, split[1]);
+			game->tex->no->img = convert_xpm(game, split[1], game->tex->no->img);
 		else if (!ft_strcmp(split[0], "SO") && split[1])
-			game->tex->so->img = convert_xpm(game, split[1]);
+			game->tex->so->img = convert_xpm(game, split[1], game->tex->so->img);
 		else if (!ft_strcmp(split[0], "WE") && split[1])
-			game->tex->we->img = convert_xpm(game, split[1]);
+			game->tex->we->img = convert_xpm(game, split[1], game->tex->we->img);
 		else if (!ft_strcmp(split[0], "EA") && split[1])
-			game->tex->ea->img = convert_xpm(game, split[1]);
+			game->tex->ea->img = convert_xpm(game, split[1], game->tex->ea->img);
 		else if (!ft_strcmp(split[0], "F") && split[1])
-			game->tex->floorc = ft_atoi(split[1]);
+			game->tex->floorc = get_color(split[1]);
 		else if (!ft_strcmp(split[0], "C") && split[1])
-			game->tex->ceilingc = ft_atoi(split[1]);
+			game->tex->ceilingc = get_color(split[1]);
 		else if (split[0][0] >= '0' && split[0][0] <= '9' && y == -1)
 		{
 			temp = fill_map(&double_input[idy], -1, &y, game);
