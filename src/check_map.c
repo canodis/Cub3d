@@ -61,15 +61,15 @@ bool	anything(char *s1, char *s2)
 
 bool	check_walls(t_game *game, int x, int y, char **str)
 {
-	while (++y < find_double_array_len(str))
+	while (str[++y])
 	{
 		x = -1;
-		while (++x < ft_strlen(str[y]))
+		while (str[y][++x])
 		{
 			if (str[y][x] == ' ')
 				continue;
-			else if (str[y][x] != '1' && (y == 0 || y == ft_strlen(str[y]) - 1))
-				ft_exit("walss ilk if");
+			else if (str[y][x] != '1' && (y == 0 || y == find_double_array_len(str) - 1))
+				ft_exit("walss ilk if y :");
 			else if (str[y][x] != '1' && (x == 0 || x == ft_strlen(str[y]) - 1))
 				ft_exit("walls second if");
 			else if (!ft_strchr("NSEW012", str[y][x]))
@@ -160,6 +160,69 @@ void	map_inspection(char *str, int idx, int idy, t_game *game)
 	get_adress(game);
 }
 
+bool	check_player(t_game *game, char p)
+{
+	if (p == 'E')
+	{
+		game->pdata->dir_x = 0.00;
+		game->pdata->dir_y = 1.00;
+		game->pdata->plane_x = 0.66;
+		game->pdata->plane_y = 0;
+		return (true);
+	}
+	else if (p == 'W')
+	{
+		game->pdata->dir_x = 0.00;
+		game->pdata->dir_y = -1.00;
+		game->pdata->plane_x = -0.66;
+		game->pdata->plane_y = 0;
+		return (true);
+	}
+	else if (p == 'S')
+	{
+		game->pdata->dir_x = -1.00;
+		game->pdata->dir_y = 0.00;
+		game->pdata->plane_x = 0;
+		game->pdata->plane_y = 0.66;
+		return (true);
+	}
+	else if (p == 'N')
+	{
+		game->pdata->dir_x = 1.00;
+		game->pdata->dir_y = 0.00;
+		game->pdata->plane_x = 0;
+		game->pdata->plane_y = -0.66;
+		return (true);
+	}
+	return (false);
+}
+
+void	set_playerpos(t_game *game)
+{
+	int		y;
+	int		x;
+	bool	onetime;
+
+	onetime = false;
+	y = -1;
+	while (game->map[++y])
+	{
+		x = -1;
+		while (game->map[y][++x])
+		{
+			if (check_player(game, game->map[y][x])) // 1, 3
+			{
+				game->pdata->pos_x = x + 0.5f;
+				game->pdata->pos_y = y + 0.5f;
+				onetime = true;
+				break;
+			}
+		}
+		if (onetime)
+			break;
+	}
+}
+
 bool	check_map(t_game *game, char *str)
 {
 	int		fd;
@@ -175,5 +238,6 @@ bool	check_map(t_game *game, char *str)
 	map_inspection(map, 0, -1, game);
 	close(fd);
 	free(map);
+	set_playerpos(game);
 	return (0);
 }

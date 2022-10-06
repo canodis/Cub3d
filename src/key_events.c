@@ -26,7 +26,7 @@ void	rotate_cam(t_game *game)
 	if (game->keys->left_key)
 	{
 		oldDirX = game->pdata->dir_x;
-		game->pdata->dir_x = game->pdata->dir_x * cos(game->pdata->rot_speed)- game->pdata->dir_y * sin(game->pdata->rot_speed);
+		game->pdata->dir_x = game->pdata->dir_x * cos(game->pdata->rot_speed) - game->pdata->dir_y * sin(game->pdata->rot_speed);
 		game->pdata->dir_y = oldDirX * sin(game->pdata->rot_speed) + game->pdata->dir_y * cos(game->pdata->rot_speed);
 		oldPlaneX = game->pdata->plane_x;
 		game->pdata->plane_x = game->pdata->plane_x * cos(game->pdata->rot_speed) - game->pdata->plane_y * sin(game->pdata->rot_speed);
@@ -41,22 +41,6 @@ void	rotate_cam(t_game *game)
 		game->pdata->plane_x = game->pdata->plane_x * cos(-game->pdata->rot_speed) - game->pdata->plane_y * sin(-game->pdata->rot_speed);
 		game->pdata->plane_y = oldPlaneX * sin(-game->pdata->rot_speed) + game->pdata->plane_y * cos(-game->pdata->rot_speed);
 	}
-}
-
-void get_screenshot(t_game *game)
-{
-	int fd = open("screenShot", O_CREAT, O_RDWR | 0777);
-	dup2(fd, 1);
-	for (int y = 0; y < screenHeight; y++)
-	{
-		for (int x = 0; x < screenWidth; x++)
-		{
-			printf("%i", game->image->addr[y * screenWidth + x]);
-		}
-		printf("\n");
-	}
-	close(fd);
-	printf("bitti"); 
 }
 
 int	key_press(int keycode, t_game *game)
@@ -81,8 +65,6 @@ int	key_press(int keycode, t_game *game)
 		game->keys->a_key = true;
 	if (keycode == 2)
 		game->keys->d_key = true;
-	if (keycode == 5)
-		get_screenshot(game);
 	return (0);
 }
 
@@ -110,27 +92,27 @@ void	movements(t_game *game)
 	rotate_cam(game);
 	if (game->keys->w_key)
 	{
-		if(game->map[(int)(game->pdata->pos_x + game->pdata->dir_x * game->pdata->speed)][(int)game->pdata->pos_y] == 48)
+		if(game->map[(int)game->pdata->pos_y][(int)(game->pdata->pos_x + game->pdata->dir_x * game->pdata->speed)] != 49)
 			game->pdata->pos_x += game->pdata->dir_x * game->pdata->speed;
-		if(game->map[(int)game->pdata->pos_x][(int)(game->pdata->pos_y + game->pdata->dir_y * game->pdata->speed)] == 48)
+		if(game->map[(int)(game->pdata->pos_y + game->pdata->dir_y * game->pdata->speed)][(int)game->pdata->pos_x] != 49)
 			game->pdata->pos_y += game->pdata->dir_y * game->pdata->speed;
 	}
 	if (game->keys->s_key)
 	{
-		if(game->map[(int)(game->pdata->pos_x - game->pdata->dir_x * game->pdata->speed)][(int)game->pdata->pos_y] == 48)
+		if(game->map[(int)game->pdata->pos_y][(int)(game->pdata->pos_x - game->pdata->dir_x * game->pdata->speed)] != 49)
 			game->pdata->pos_x -= game->pdata->dir_x * game->pdata->speed;
-		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
+		if(game->map[(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
 			game->pdata->pos_y -= game->pdata->dir_y * game->pdata->speed;
 	}
 	if (game->keys->a_key)
 	{
-		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
-			game->pdata->pos_y -= game->pdata->speed;
+		if(game->map[(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
+			game->pdata->pos_y -= game->pdata->dir_y * game->pdata->speed;
 	}
 	if (game->keys->d_key)
 	{
-		if(game->map[(int)(game->pdata->pos_x)][(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)] == 48)
-			game->pdata->pos_y += game->pdata->speed;
+		if(game->map[(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
+			game->pdata->pos_y += game->pdata->dir_y * game->pdata->speed;
 	}
 	if (game->keys->shift_key)
 		game->pdata->speed = 0.1f;

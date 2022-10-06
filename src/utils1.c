@@ -50,24 +50,24 @@ void	free_2d_array(char **ptr)
 
 int    no_blank_len(char **str)
 {
-    int    i;
-    int j;
-    int res;
+	int    i;
+	int j;
+	int res;
 
-    i = -1;
-    res = 0;
-    while (str[++i])
-    {
-        j = 0;
-        while (str[i][j])
-        {
-            if (str[i][j] != ' ')
-                res++;
-            j++;
-        }
-        res++;
-    }
-    return (res);
+	i = -1;
+	res = 0;
+	while (str[++i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (str[i][j] != ' ')
+				res++;
+			j++;
+		}
+		res++;
+	}
+	return (res);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

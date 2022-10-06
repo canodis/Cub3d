@@ -83,7 +83,6 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 	while(1)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
-		//printf("side_distX : %f\n side_distY : %f\n", game->ray->side_distx, game->ray->side_disty);
 		if(game->ray->side_distx < game->ray->side_disty)
 		{
 			game->ray->side_distx += game->ray->delta_distx;
@@ -97,11 +96,10 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 			*side = 1;
 		}
 		//Check if ray has hit a wall
-		if(game->map[game->ray->mapx][game->ray->mapy] > 48)
+		if(game->map[game->ray->mapy][game->ray->mapx] == 49)
 			break;
 	}
-	//printf("---------------\nside : %i\n", *side);
-	//exit(0);
+		printf("\rside_disty : %f                            ", game->ray->side_disty);
 /* 		Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 		hit to the camera plane. Euclidean to center camera point would give fisheye effect!
 		This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
