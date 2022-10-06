@@ -10,7 +10,7 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define screenWidth 320
+# define screenWidth 360
 # define screenHeight 240
 # define mapWidth 24
 # define mapHeight 24
