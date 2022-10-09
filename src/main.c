@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:09:01 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/06 16:28:17 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/09 14:59:37 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int main(int ac, char **av)
 	mlx_hook(game.window,2, 1L<<0, key_press, &game);
 	mlx_hook(game.window,3, 1L<<1, key_release, &game);
 	mlx_loop_hook(game.mlx, update, &game);
-	mlx_loop(game.mlx);
+	mlx_loop(game. mlx);
 	return (31);
 }

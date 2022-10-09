@@ -10,8 +10,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define screenWidth 360
-# define screenHeight 240
+# define screenWidth 1920
+# define screenHeight 1080
 # define mapWidth 24
 # define mapHeight 24
 
@@ -84,6 +84,16 @@ typedef struct s_keyboard
 	bool	shift_key;
 }	t_keyboard;
 
+typedef struct s_minimap
+{
+	int	x;
+	int	y;
+	int	py;
+	int	px;
+	int	o;
+	int	u;
+}	t_minimap;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -94,6 +104,7 @@ typedef struct s_game
 	t_draw_data	*draw;
 	t_textures	*tex;
 	t_keyboard	*keys;
+	t_minimap	*minimap;
 	char		**map;
 }	t_game;
 
@@ -119,5 +130,7 @@ char	**ft_split(char const *s, char c);
 int		get_color(char *str);
 void	init_keys(t_game *game);
 void	init_textures(t_game *game);
+void	init_minimap(t_game *game);
+void	minimap(t_game *game);
 
 #endif

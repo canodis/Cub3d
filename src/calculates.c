@@ -6,6 +6,7 @@ void	calculate_ray(t_game *game, int x)
 	// ray'in gideceği açıyı hesaplamak için kamera düzlemini buluyoruz -1'den başlayarak 1'e kadar gidiyor bunu ekranın büyüklüğüne göre sistematik olarak işliyor.
 	game->ray->ray_dirx = game->pdata->dir_x + (game->pdata->plane_x * game->ray->camera_x);
 	game->ray->ray_diry = game->pdata->dir_y + (game->pdata->plane_y * game->ray->camera_x);
+	// printf("plane x : %f     camera_x : %f      ray_dirx : %f         ray_diry : %f       \n", game->pdata->plane_x, game->ray->camera_x, game->ray->ray_dirx, game->ray->ray_diry);
 	// ray_dirx = karakterin baktığı yöne göre açıyı hesaplar.
 	// ray_diry = karakterin baktığı yöne göre açıyı hesaplar.
 	//printf("\rdir_x : %f     dir_y : %f              ",game->ray->ray_dirx, game->ray->ray_diry);

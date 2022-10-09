@@ -4,6 +4,11 @@
         "cub3d.h": "c",
         "libft.h": "c",
         "stdlib.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "vector": "cpp",
+        "__bit_reference": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "string": "cpp"
     }
 }

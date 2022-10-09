@@ -111,8 +111,8 @@ void	movements(t_game *game)
 	}
 	if (game->keys->d_key)
 	{
-		if(game->map[(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
-			game->pdata->pos_y += game->pdata->dir_y * game->pdata->speed;
+		if(game->map[(int)(game->pdata->pos_x + game->pdata->plane_x * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
+			game->pdata->pos_x += game->pdata->plane_x * game->pdata->speed;
 	}
 	if (game->keys->shift_key)
 		game->pdata->speed = 0.1f;

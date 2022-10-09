@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/06 14:31:50 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/09 14:59:35 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void	init_all(t_game *game)
 	init_draw_data(game);
 	init_textures(game);
 	init_keys(game);
+	init_minimap(game);
 }
