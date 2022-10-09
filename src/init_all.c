@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 14:59:35 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/09 16:08:09 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_player_data(t_game *game)
 	game->pdata->dir_x = -1;
 	game->pdata->dir_y = 0;
 	game->pdata->plane_x = 0;
-	game->pdata->plane_y = 3.14159 / 4.0;
+	game->pdata->plane_y = 0.66f;
 	game->pdata->rot_speed = 0.03f;
 	game->pdata->speed = 0.05f;
 }

@@ -9,6 +9,7 @@
         "__bit_reference": "cpp",
         "array": "cpp",
         "bitset": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "chrono": "c"
     }
 }

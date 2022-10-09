@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 15:31:46 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/09 18:46:14 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	draw_vertical(t_game *game, int x, int side, int y)
 		}
 		game->image->addr[y * screenWidth + x] = game->draw->color;
 	}
-	// minimap(game);
-	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 }
 
 int	update(t_game *game)
@@ -63,6 +61,9 @@ int	update(t_game *game)
 		calculate_textures(game, side);
 		draw_vertical(game, x, side, -1);
 	}
+	minimap(game);
+	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 	// printf("\rplane_X : %f               ", game->pdata->plane_x);
+	// usleep(500000);
 	return (0);
 }
