@@ -1,26 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 20:09:01 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/11 16:54:56 by rtosun           ###   ########.fr       */
+/*   Created: 2022/10/11 16:57:44 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/11 16:57:47 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	main(int ac, char **av)
+int	ft_atoi_base(const char *str)
 {
-	t_game	game;
+	int	i;
+	int	n;
+	int	len;
+	int	result;
 
-	init_all(&game);
-	check_map(&game, av[1]);
-	mlx_hook(game.window, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.window, 3, 1L << 1, key_release, &game);
-	mlx_loop_hook(game.mlx, update, &game);
-	mlx_loop(game. mlx);
-	return (31);
+	i = 0;
+	n = 1;
+	result = 0;
+	if (str[i] == '-')
+	{
+		n = -1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		result *= 16;
+		if (str[i] >= '0' && str[i] <= '9')
+			result += str[i] - 48;
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			result += str[i] - 55;
+		else if (str[i] >= 'a' && str[i] <= 'z')
+			result += str[i] - 87;
+		i++;
+	}
+	return (result * n);
 }

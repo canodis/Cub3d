@@ -109,7 +109,7 @@ typedef struct s_game
 }	t_game;
 
 
-
+int		ft_atoi_base(const char *str);
 void	init_all(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		update(t_game *game);

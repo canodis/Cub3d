@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 16:55:08 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/11 16:56:15 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	init_values(t_game *game)
@@ -6,7 +18,7 @@ void	init_values(t_game *game)
 	game->minimap->y = -1;
 	game->minimap->o = 0;
 	game->minimap->py = 0;
-	game->minimap->px= 0;
+	game->minimap->px = 0;
 	game->minimap->u = 0;
 }
 
@@ -16,7 +28,8 @@ void	render_minimap(t_game *game, int color, int pixels_to_draw)
 	game->minimap->o = 0;
 	while (game->minimap->o < pixels_to_draw -1)
 	{
-		game->image->addr[game->minimap->py * screenWidth + game->minimap->px] = color;
+		game->image->addr[game->minimap->py
+			* screenWidth + game->minimap->px] = color;
 		game->minimap->px++;
 		game->minimap->o++;
 	}
@@ -29,7 +42,7 @@ void	draw_minimap(t_game *game, int pixels_to_draw)
 	c = game->map[game->minimap->y][game->minimap->x];
 	if (c == '1')
 		render_minimap(game, 0x00F0F0F0, pixels_to_draw);
-	else if (c == '0' || c == 'N' || c == 'S' || c == 'E'|| c == 'W')
+	else if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		render_minimap(game, 0, pixels_to_draw);
 	if ((game->minimap->y == (int)game->pdata->pos_y)
 		&& (game->minimap->x == (int)game->pdata->pos_x))

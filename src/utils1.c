@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 16:56:28 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/11 16:57:28 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 char	*ft_str_join(char *left_str, char *buff)
@@ -24,9 +36,9 @@ char	*ft_str_join(char *left_str, char *buff)
 	return (str);
 }
 
-int find_double_array_len(char **s)
+int	find_double_array_len(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -74,7 +86,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	while ((s1[i]) && (s2[i]))
 	{
 		if (s1[i] != s2[i])
-			break;
+			break ;
 		i++;
 	}
 	return ((const unsigned char)s1[i] - (const unsigned char)s2[i]);

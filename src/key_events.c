@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_events.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 16:53:46 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/11 16:53:57 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	free_map(t_game *game)
@@ -41,8 +53,8 @@ void	free_all(t_game *game)
 
 void	rotate_cam(t_game *game)
 {
-	double oldDirX;
-	double oldPlaneX;
+	double	oldDirX;
+	double	oldPlaneX;
 
 	if (game->keys->left_key)
 	{
