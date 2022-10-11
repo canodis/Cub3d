@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:09:01 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 14:59:37 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/11 16:44:41 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int main(int ac, char **av)
 {
 	t_game	game;
-	char	**map;
-	
+
 	init_all(&game);
 	check_map(&game, av[1]);
 	mlx_hook(game.window,2, 1L<<0, key_press, &game);

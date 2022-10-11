@@ -6,11 +6,12 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 11:27:43 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/05 12:24:28 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/11 16:23:19 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dizi;

@@ -6,7 +6,6 @@ void	calculate_ray(t_game *game, int x)
 	// ray'in gideceği açıyı hesaplamak için kamera düzlemini buluyoruz -1'den başlayarak 1'e kadar gidiyor bunu ekranın büyüklüğüne göre sistematik olarak işliyor.
 	game->ray->ray_dirx = game->pdata->dir_x + (game->pdata->plane_x * game->ray->camera_x);
 	game->ray->ray_diry = game->pdata->dir_y + (game->pdata->plane_y * game->ray->camera_x);
-	// printf("plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y);
 	// ray_dirx = karakterin baktığı yöne göre açıyı hesaplar.
 	// ray_diry = karakterin baktığı yöne göre açıyı hesaplar.
 	//printf("\rdir_x : %f     dir_y : %f              ",game->ray->ray_dirx, game->ray->ray_diry);
@@ -76,14 +75,12 @@ void	calculate_textures(t_game *game, int side)
 		game->draw->tex_x = game->draw->tex_w - game->draw->tex_x - 1;
 	if(side == 1 && game->ray->ray_diry < 0)
 		game->draw->tex_x = game->draw->tex_w - game->draw->tex_x - 1;		
-	game->draw->step = 1.0 * game->draw->tex_h / game->draw->line_h;
-	// Starting texture coordinate
+	game->draw->step = (double)game->draw->tex_h / game->draw->line_h;
 	game->draw->tex_pos = (game->draw->draw_s - screenHeight / 2 + game->draw->line_h / 2) * game->draw->step;
 }
 
 void	hit_check(t_game *game, int *side, int stepx, int stepy)
 {
-	char *str;
 	while(1)
 	{
 		//side dist_x gönderilen ışının x düzlemindeki toplam uzunluğu
@@ -104,8 +101,7 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 		if(game->map[game->ray->mapy][game->ray->mapx] == 49)
 			break;
 	}
-
-		printf("side_distx : %f  ||  side_disty : %f  ||  ray_dirx : %f  ||  ray_diry : %f  ||  plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->ray->side_distx ,game->ray->side_disty, game->ray->ray_dirx, game->ray->ray_diry,  game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y );
+		// printf("side_distx : %f  ||  side_disty : %f  ||  ray_dirx : %f  ||  ray_diry : %f  ||  plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->ray->side_distx ,game->ray->side_disty, game->ray->ray_dirx, game->ray->ray_diry,  game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y );
 /* 		Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
 		hit to the camera plane. Euclidean to center camera point would give fisheye effect!
 		This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y

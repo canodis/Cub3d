@@ -1,8 +1,23 @@
 #include "../include/cub3d.h"
 
+void	free_map(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	free(game->map);
+}
+
 void	free_all(t_game *game)
 {
 	free(game->draw);
+	free(game->image->addr);
+	free(game->image->img);
 	free(game->image);
 	free(game->keys);
 	free(game->pdata);
@@ -15,7 +30,13 @@ void	free_all(t_game *game)
 	free(game->tex->no->img);
 	free(game->tex->so->img);
 	free(game->tex->we->img);
+	free(game->tex->ea);
+	free(game->tex->no);
+	free(game->tex->so);
+	free(game->tex->we);
 	free(game->tex);
+	free(game->minimap);
+	free_2d_array(game->map);
 }
 
 void	rotate_cam(t_game *game)
@@ -49,6 +70,7 @@ int	key_press(int keycode, t_game *game)
 	{
 		mlx_destroy_window(game->mlx, game->window);
 		free_all(game);
+		while (1);
 		exit(0);
 	}
 	if (keycode == 13)
@@ -106,13 +128,17 @@ void	movements(t_game *game)
 	}
 	if (game->keys->a_key)
 	{
-		if(game->map[(int)(game->pdata->pos_y - game->pdata->dir_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
-			game->pdata->pos_y -= game->pdata->dir_y * game->pdata->speed;
+		if (game->map[(int)(game->pdata->pos_y - game->pdata->plane_y * game->pdata->speed)][(int)game->pdata->pos_x] != 49)
+			game->pdata->pos_y -= game->pdata->plane_y * game->pdata->speed;
+		if(game->map[(int)(game->pdata->pos_y)][(int)(game->pdata->pos_x - game->pdata->plane_x * game->pdata->speed)] != 49)
+			game->pdata->pos_x -= game->pdata->plane_x * game->pdata->speed;
 	}
 	if (game->keys->d_key)
 	{
-		if(game->map[(int)(game->pdata->pos_x + game->pdata->plane_x * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
+		if(game->map[(int)(game->pdata->pos_y)][(int)(game->pdata->pos_x + game->pdata->plane_x * game->pdata->speed)] != 49)
 			game->pdata->pos_x += game->pdata->plane_x * game->pdata->speed;
+		if (game->map[(int)(game->pdata->pos_y + game->pdata->plane_y * game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
+			game->pdata->pos_y += game->pdata->plane_y * game->pdata->speed;
 	}
 	if (game->keys->shift_key)
 		game->pdata->speed = 0.1f;

@@ -20,7 +20,7 @@ char	*ft_str_join(char *left_str, char *buff)
 	while (buff[j])
 		str[i++] = buff[j++];
 	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
-	//free(left_str);
+	free(left_str);
 	return (str);
 }
 
@@ -38,21 +38,17 @@ void	free_2d_array(char **ptr)
 {
 	int	i;
 
-	i = find_double_array_len(ptr);
-	while (i > 0)
-	{
-		// free(ptr[i - 1]);
-		ptr[i - 1] = NULL;
-		i--;
-	}
-	// free(ptr);
+	i = -1;
+	while (ptr[++i])
+		free(ptr[i]);
+	free(ptr);
 }
 
-int    no_blank_len(char **str)
+int	no_blank_len(char **str)
 {
-	int    i;
-	int j;
-	int res;
+	int	i;
+	int	j;
+	int	res;
 
 	i = -1;
 	res = 0;

@@ -50,10 +50,9 @@ char	*double_str_join(char **str)
 	return (res);
 }
 
-char	*convert(int res)
+char	*convert(int res, char *value)
 {
-	char *hexvalue;
-
+	char		*hexvalue;
 	long long	tempDecimal;
 	char		*hex;
 	int			index;
@@ -74,6 +73,7 @@ char	*convert(int res)
 	hex[index] = '\0';
 	ft_strrev(hex);
 	free(hexvalue);
+	free(value);
 	return (hex);
 }
 
@@ -110,15 +110,18 @@ int	get_color(char *str)
 {
 	char	**double_array;
 	int		len;
-	char	*result;
-	int		last_res;
+	char	*str_result;
+	int		result;
 
 	len = -1;
 	double_array = ft_split(str, ',');
-	while (double_array[++len]);
+	while (double_array[len])
+		len++;
 	while (--len >= 0)
-		double_array[len] = convert(ft_atoi(double_array[len]));
-	result = double_str_join(double_array);
-	last_res = (ft_atoi_base(result));
-	return (last_res);
+		double_array[len] = convert(ft_atoi(double_array[len]), double_array[len]);
+	str_result = double_str_join(double_array);
+	result = (ft_atoi_base(str_result));
+	free(str_result);
+	free_2d_array(double_array);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 18:46:14 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:45:11 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	update(t_game *game)
 		calculate_steps(game, &stepX, &stepY);
 		hit_check(game, &side, stepX, stepY);
 		calculate_pixels(game);
-		//double wall_x; //where exactly the wall was hit
 		if (side == 0)
 			game->draw->wall_x = game->pdata->pos_y + game->ray->wall_dist * game->ray->ray_diry;
 		else
@@ -63,7 +62,5 @@ int	update(t_game *game)
 	}
 	minimap(game);
 	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
-	// printf("\rplane_X : %f               ", game->pdata->plane_x);
-	// usleep(500000);
 	return (0);
 }
