@@ -210,7 +210,7 @@ void	set_playerpos(t_game *game)
 		x = -1;
 		while (game->map[y][++x])
 		{
-			if (check_player(game, game->map[y][x])) // 1, 3
+			if (check_player(game, game->map[y][x]))
 			{
 				game->pdata->pos_x = x + 0.5f;
 				game->pdata->pos_y = y + 0.5f;
@@ -229,11 +229,12 @@ bool	check_map(t_game *game, char *str)
 	char	*map;
 
 	fd = open(str, O_RDWR);
-	if (fd <= 0)
+	if (fd < 0)
 	{
-		printf("yanlis map ismi !");
+		printf("Wrong map name !");
 		exit(0);
 	}
+	init_all(game);
 	map = ft_read_map(fd);
 	map_inspection(map, 0, -1, game);
 	close(fd);

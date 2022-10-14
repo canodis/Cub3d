@@ -1,4 +1,6 @@
+
 #include "../include/cub3d.h"
+
 void	calculate_ray(t_game *game, int x)
 {
 	//x veya y yönünde hangi yönde adım atılacağı bulunur(+1 veya -1)
@@ -24,16 +26,17 @@ void	calculate_ray(t_game *game, int x)
 	deltaDistY arasındaki oran önemlidir. Yani değerler aşağıdaki gibi hesaplanabilir.
 	IEEE 754 kayan nokta değerleri ile C++'da teknik olarak buna gerek olmamasına rağmen sıfıra bölme engellenir.*/
 	if (game->ray->ray_dirx == 0)
-		game->ray->delta_distx = 1e30;
+		game->ray->delta_distx = 1;
 	else
 		game->ray->delta_distx = fabs(1 / game->ray->ray_dirx);
 	if (game->ray->ray_diry == 0)
-		game->ray->delta_disty = 1e30;
+		game->ray->delta_disty = 1;
 	else
 		game->ray->delta_disty = fabs(1 / game->ray->ray_diry);
+	// printf("ray_dirX : %f  ||  ray_dirY : %f  ||  delta_distX : %f  ||  delta_distY : %f\n", game->ray->ray_dirx, game->ray->ray_diry, game->ray->delta_distx, game->ray->delta_disty);
 }
 
-//calculate step and initial sideDist
+//int pozisyondan float pozisyon çıkartılıp deltasıyla çarpılınca tam kare konumu bulunuyor.
 void	calculate_steps(t_game *game, int *step_x, int *step_y)
 {
 	if(game->ray->ray_dirx < 0)
@@ -56,6 +59,8 @@ void	calculate_steps(t_game *game, int *step_x, int *step_y)
 		*step_y = 1;
 		game->ray->side_disty = (game->ray->mapy + 1.0 - game->pdata->pos_y) * game->ray->delta_disty;
 	}
+	// printf("side_distX : %f  ||  side_distY : %f\n", game->ray->side_distx, game->ray->side_disty);
+	// printf("pos_X : %f  || pos_Y  : %f\n", game->pdata->pos_x, game->pdata->pos_y);
 }
 
 void	calculate_pixels(t_game *game)
@@ -101,13 +106,7 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 		if(game->map[game->ray->mapy][game->ray->mapx] == 49)
 			break;
 	}
-		// printf("side_distx : %f  ||  side_disty : %f  ||  ray_dirx : %f  ||  ray_diry : %f  ||  plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->ray->side_distx ,game->ray->side_disty, game->ray->ray_dirx, game->ray->ray_diry,  game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y );
-/* 		Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
-		hit to the camera plane. Euclidean to center camera point would give fisheye effect!
-		This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
-		for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
-		because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
-		steps, but we subtract deltaDist once because one step more into the wall was taken above. */
+	// printf("side_distx : %f  ||  side_disty : %f  ||  ray_dirx : %f  ||  ray_diry : %f  ||  plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->ray->side_distx ,game->ray->side_disty, game->ray->ray_dirx, game->ray->ray_diry,  game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y );
 	if(*side == 0)
 		game->ray->wall_dist = (game->ray->side_distx - game->ray->delta_distx);
 	else

@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 12:37:10 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/11 16:48:55 by rtosun           ###   ########.fr       */
+/*   Created: 2022/10/12 16:32:20 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/12 16:33:41 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "libft.h"
 
 static int	count_words(const char *str, char c)
 {

@@ -12,10 +12,6 @@
 
 # define screenWidth 1920
 # define screenHeight 1080
-# define mapWidth 24
-# define mapHeight 24
-
-extern char **map;
 
 typedef struct	s_data {
 	void	*img;
@@ -132,5 +128,11 @@ void	init_keys(t_game *game);
 void	init_textures(t_game *game);
 void	init_minimap(t_game *game);
 void	minimap(t_game *game);
+void	free_all(t_game *game);
+void	go_east(t_game *game);
+void	go_west(t_game *game);
+void	go_north(t_game *game);
+void	go_south(t_game *game);
+
 
 #endif
