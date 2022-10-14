@@ -10,8 +10,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define screenWidth 1920
-# define screenHeight 1080
+# define screenWidth 480
+# define screenHeight 360
 
 typedef struct	s_data {
 	void	*img;
@@ -133,6 +133,6 @@ void	go_east(t_game *game);
 void	go_west(t_game *game);
 void	go_north(t_game *game);
 void	go_south(t_game *game);
-
+void	rotate_right(t_player *p);
 
 #endif

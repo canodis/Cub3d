@@ -39,3 +39,18 @@ void	go_south(t_game *game)
 		* game->pdata->speed)][(int)(game->pdata->pos_x)] != 49)
 		game->pdata->pos_y -= game->pdata->dir_y * game->pdata->speed;
 }
+
+void	rotate_right(t_player *p)
+{
+	double	oldDirX;
+	double	oldPlaneX;
+
+	oldDirX = p->dir_x;
+	p->dir_x = p->dir_x * cos(-p->rot_speed) - p->dir_y * sin(-p->rot_speed);
+	p->dir_y = oldDirX * sin(-p->rot_speed) + p->dir_y * cos(-p->rot_speed);
+	oldPlaneX = p->plane_x;
+	p->plane_x = p->plane_x * cos(-p->rot_speed)
+		- p->plane_y * sin(-p->rot_speed);
+	p->plane_y = oldPlaneX * sin(-p->rot_speed)
+		+ p->plane_y * cos(-p->rot_speed);
+}

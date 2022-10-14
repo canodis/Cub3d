@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:53:46 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/14 17:30:10 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/14 17:36:29 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,24 @@
 
 void	rotate_cam(t_game *game)
 {
-	double	oldDirX;
-	double	oldPlaneX;
+	double		oldDirX;
+	double		oldPlaneX;
+	t_player	*p;
 
+	p = game->pdata;
 	if (game->keys->left_key)
 	{
-		oldDirX = game->pdata->dir_x;
-		game->pdata->dir_x = game->pdata->dir_x * cos(game->pdata->rot_speed)
-			- game->pdata->dir_y * sin(game->pdata->rot_speed);
-		game->pdata->dir_y = oldDirX * sin(game->pdata->rot_speed)
-			+ game->pdata->dir_y * cos(game->pdata->rot_speed);
-		oldPlaneX = game->pdata->plane_x;
-		game->pdata->plane_x = game->pdata->plane_x * cos(game->pdata->rot_speed)
-			- game->pdata->plane_y * sin(game->pdata->rot_speed);
-		game->pdata->plane_y = oldPlaneX * sin(game->pdata->rot_speed)
-			+ game->pdata->plane_y * cos(game->pdata->rot_speed);
+		oldDirX = p->dir_x;
+		p->dir_x = p->dir_x * cos(p->rot_speed) - p->dir_y * sin(p->rot_speed);
+		p->dir_y = oldDirX * sin(p->rot_speed) + p->dir_y * cos(p->rot_speed);
+		oldPlaneX = p->plane_x;
+		p->plane_x = p->plane_x * cos(p->rot_speed)
+			- p->plane_y * sin(p->rot_speed);
+		p->plane_y = oldPlaneX * sin(p->rot_speed)
+			+ p->plane_y * cos(p->rot_speed);
 	}
 	if (game->keys->right_key)
-	{
-		oldDirX = game->pdata->dir_x;
-		game->pdata->dir_x = game->pdata->dir_x * cos(-game->pdata->rot_speed) - game->pdata->dir_y * sin(-game->pdata->rot_speed);
-		game->pdata->dir_y = oldDirX * sin(-game->pdata->rot_speed) + game->pdata->dir_y * cos(-game->pdata->rot_speed);
-		oldPlaneX = game->pdata->plane_x;
-		game->pdata->plane_x = game->pdata->plane_x * cos(-game->pdata->rot_speed) - game->pdata->plane_y * sin(-game->pdata->rot_speed);
-		game->pdata->plane_y = oldPlaneX * sin(-game->pdata->rot_speed) + game->pdata->plane_y * cos(-game->pdata->rot_speed);
-	}
+		rotate_right(p);
 }
 
 int	key_press(int keycode, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/14 15:51:03 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/14 18:17:15 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	draw_vertical(t_game *game, int x, int side, int y)
 {
 	while (++y < screenHeight)
 	{
-		game->draw->tex_y = (int)game->draw->tex_pos & (game->draw->tex_h - 1);
+		game->draw->tex_y = (int)game->draw->tex_pos & 63;
 		if (y < game->draw->draw_s)
 			game->draw->color = game->tex->ceilingc;
 		else if (y > game->draw->draw_e)
@@ -24,13 +24,17 @@ void	draw_vertical(t_game *game, int x, int side, int y)
 		else
 		{
 			if (side == 0 && game->ray->ray_dirx < 0)
-				game->draw->color = game->tex->ea->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->ea->addr[game->draw->tex_h
+					* game->draw->tex_y + game->draw->tex_x];
 			else if (side == 0 && game->ray->ray_dirx >= 0)
-				game->draw->color = game->tex->so->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->so->addr[game->draw->tex_h
+					* game->draw->tex_y + game->draw->tex_x];
 			if (side == 1 && game->ray->ray_diry < 0)
-				game->draw->color = game->tex->no->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->no->addr[game->draw->tex_h
+					* game->draw->tex_y + game->draw->tex_x];
 			else if (side == 1 && game->ray->ray_diry >= 0)
-				game->draw->color = game->tex->we->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->we->addr[game->draw->tex_h
+					* game->draw->tex_y + game->draw->tex_x];
 			game->draw->tex_pos += game->draw->step;
 		}
 		game->image->addr[y * screenWidth + x] = game->draw->color;
