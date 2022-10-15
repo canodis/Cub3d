@@ -6,13 +6,13 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:53:46 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/14 17:36:29 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:46:28 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	rotate_cam(t_game *game)
+static void	rotate_cam(t_game *game)
 {
 	double		oldDirX;
 	double		oldPlaneX;

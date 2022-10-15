@@ -6,13 +6,13 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 16:08:09 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:47:46 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	init_mlx(t_game *game)
+static void	init_mlx(t_game *game)
 {
 	int	a;
 
@@ -24,7 +24,7 @@ void	init_mlx(t_game *game)
 			&a, &a, &a);
 }
 
-void	init_player_data(t_game *game)
+static void	init_player_data(t_game *game)
 {
 	game->pdata = malloc(sizeof(t_player));
 	game->pdata->pos_x = 2;
@@ -37,7 +37,7 @@ void	init_player_data(t_game *game)
 	game->pdata->speed = 0.05f;
 }
 
-void	init_ray_data(t_game *game)
+static void	init_ray_data(t_game *game)
 {
 	game->ray = malloc(sizeof(t_ray));
 	game->ray->camera_x = 0;
@@ -52,7 +52,7 @@ void	init_ray_data(t_game *game)
 	game->ray->wall_dist = 0;
 }
 
-void	init_draw_data(t_game *game)
+static void	init_draw_data(t_game *game)
 {
 	game->draw = malloc(sizeof(t_draw_data));
 	game->draw->color = 0;

@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:26:43 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/09 15:11:14 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:45:54 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_minimap(t_game *game)
 	game->minimap->x = 0;
 	game->minimap->y = 0;
 	game->minimap->o = 0;
-	game->minimap->u = 0;
+	game->minimap->i = 0;
 	game->minimap->py = 0;
 	game->minimap->px = 0;
 }

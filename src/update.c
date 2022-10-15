@@ -6,13 +6,13 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/14 18:17:15 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:48:31 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	draw_vertical(t_game *game, int x, int side, int y)
+static void	draw_vertical(t_game *game, int x, int side, int y)
 {
 	while (++y < screenHeight)
 	{

@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:39:55 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/15 17:34:06 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 18:43:14 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	calculate_ray(t_game *game, int x)
 {
-	// -1 VE +1 arasi deger
 	game->ray->camera_x = 2 * x / (double)screenWidth - 1;
 	game->ray->ray_dirx = game->pdata->dir_x + (game->pdata->plane_x * game->ray->camera_x);
 	game->ray->ray_diry = game->pdata->dir_y + (game->pdata->plane_y * game->ray->camera_x);
@@ -28,7 +27,7 @@ void	calculate_ray(t_game *game, int x)
 		game->ray->delta_disty = 1;
 	else
 		game->ray->delta_disty = fabs(1 / game->ray->ray_diry);
-	printf("ray_dirX : %f  ||  ray_dirY : %f  ||  delta_distX : %f  ||  delta_distY : %f\n", game->ray->ray_dirx, game->ray->ray_diry, game->ray->delta_distx, game->ray->delta_disty);
+	// printf("ray_dirX : %f  ||  ray_dirY : %f  ||  delta_distX : %f  ||  delta_distY : %f\n", game->ray->ray_dirx, game->ray->ray_diry, game->ray->delta_distx, game->ray->delta_disty);
 }
 
 //int pozisyondan f¬oat pozisyon çıkartılıp deltasıyla çarpılınca tam kare konumu bulunuyor.
