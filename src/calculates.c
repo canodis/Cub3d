@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:39:55 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/14 18:11:32 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/15 17:34:06 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	calculate_ray(t_game *game, int x)
 {
+	// -1 VE +1 arasi deger
 	game->ray->camera_x = 2 * x / (double)screenWidth - 1;
-	game->ray->ray_dirx = game->pdata->dir_x +
-		(game->pdata->plane_x * game->ray->camera_x);
-	game->ray->ray_diry = game->pdata->dir_y +
-		(game->pdata->plane_y * game->ray->camera_x);
+	game->ray->ray_dirx = game->pdata->dir_x + (game->pdata->plane_x * game->ray->camera_x);
+	game->ray->ray_diry = game->pdata->dir_y + (game->pdata->plane_y * game->ray->camera_x);
 	game->ray->mapx = (int)game->pdata->pos_x;
 	game->ray->mapy = (int)game->pdata->pos_y;
 	if (game->ray->ray_dirx == 0)
@@ -29,10 +28,10 @@ void	calculate_ray(t_game *game, int x)
 		game->ray->delta_disty = 1;
 	else
 		game->ray->delta_disty = fabs(1 / game->ray->ray_diry);
-	// printf("ray_dirX : %f  ||  ray_dirY : %f  ||  delta_distX : %f  ||  delta_distY : %f\n", game->ray->ray_dirx, game->ray->ray_diry, game->ray->delta_distx, game->ray->delta_disty);
+	printf("ray_dirX : %f  ||  ray_dirY : %f  ||  delta_distX : %f  ||  delta_distY : %f\n", game->ray->ray_dirx, game->ray->ray_diry, game->ray->delta_distx, game->ray->delta_disty);
 }
 
-//int pozisyondan float pozisyon çıkartılıp deltasıyla çarpılınca tam kare konumu bulunuyor.
+//int pozisyondan f¬oat pozisyon çıkartılıp deltasıyla çarpılınca tam kare konumu bulunuyor.
 void	calculate_steps(t_game *game, int *step_x, int *step_y)
 {
 	if(game->ray->ray_dirx < 0)
@@ -103,8 +102,9 @@ void	hit_check(t_game *game, int *side, int stepx, int stepy)
 	}
 	// printf("side_distx : %f  ||  side_disty : %f  ||  ray_dirx : %f  ||  ray_diry : %f  ||  plane x : %f || plane y : %f || dirx : %f || diry : %f\n", game->ray->side_distx ,game->ray->side_disty, game->ray->ray_dirx, game->ray->ray_diry,  game->pdata->plane_x, game->pdata->plane_y, game->pdata->dir_x, game->pdata->dir_y );
 	if(*side == 0)
-		game->ray->wall_dist = (game->ray->side_distx - game->ray->delta_distx);
+		game->ray->wall_dist = game->ray->side_distx - game->ray->delta_distx;
 	else
-		game->ray->wall_dist = (game->ray->side_disty - game->ray->delta_disty);
+		game->ray->wall_dist = game->ray->side_disty - game->ray->delta_disty;
+	// printf("side_dist_x : %f  ||  side_dist_y : %f  ||  delta_distx : %f  ||  delta_disty : %f ||  wall_dist : %f\n", game->ray->side_distx, game->ray->side_disty, game->ray->delta_distx, game->ray->delta_disty,  game->ray->wall_dist);
 	game->draw->line_h = (int)(screenHeight / game->ray->wall_dist);
 }
