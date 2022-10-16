@@ -59,53 +59,34 @@ bool	anything(char *s1, char *s2)
 	return (true);
 }
 
-bool	check_walls(t_game *game, int x, int y, char **str)
-{
-	while (str[++y])
-	{
-		x = -1;
-		while (str[y][++x])
-		{
-			if (str[y][x] == ' ')
-				continue;
-			else if (str[y][x] != '1' && (y == 0 || y == find_double_array_len(str) - 1))
-				ft_exit("walss ilk if y :");
-			else if (str[y][x] != '1' && (x == 0 || x == ft_strlen(str[y]) - 1))
-				ft_exit("walls second if");
-			else if (!ft_strchr("NSEW012", str[y][x]))
-				ft_exit("onje walls");
-			else if (str[y + 1] && !anything(str[y], str[y + 1]))
-				ft_exit("anything");
-		}
-	}
-	return (true);
-}
-
 char	*fill_map(char **str, int x, int *y, t_game *game)
 {
 	char	*result;
 	int		idx;
 
 	idx = 0;
-	result = malloc(sizeof(char) * no_blank_len(str) + 1);
+	result = malloc(sizeof(char) * len_2d_into(str) + 1);
 	while (++(*y) < find_double_array_len(str))
 	{
 		x = -1;
 		while (++x < ft_strlen(str[*y]))
 		{
 			if (str[*y][x] == ' ')
-				continue;
-			else if (!ft_strchr("NSEW012", str[*y][x]))
+				result[idx++] = '0';
+			else if (!ft_strchr("NSEW01", str[*y][x]))
 			{
 				result[idx] = '\0';
 				return (result);
 			}
-			result[idx++] = str[*y][x];
+			else
+				result[idx++] = str[*y][x];
 		}
 		if ((*y) + 1 < find_double_array_len(str))
 			result[idx++] = '\n';
 	}
 	result[idx] = '\0';
+	printf("%s", result);
+	exit(31);
 	return (result);
 }
 
@@ -149,8 +130,10 @@ void	map_inspection(char *str, int idx, int idy, t_game *game)
 		{
 			temp = fill_map(&double_input[idy], -1, &y, game);
 			game->map = ft_split(temp, '\n');
+			printf("%s\n", temp);
+			exit(0);
 			free(temp);
-			check_walls(game, -1, -1, game->map);
+			check_map_surrounded(game);
 			y = 0;
 		}
 		if (split || split[0])

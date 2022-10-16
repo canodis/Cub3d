@@ -10,8 +10,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define screenWidth 1920
-# define screenHeight 1080
+# define screenWidth 480
+# define screenHeight 360
 
 typedef struct	s_data {
 	void	*img;
@@ -86,7 +86,6 @@ typedef struct s_minimap
 	int	y;
 	int	py;
 	int	px;
-	int	o;
 	int	i;
 }	t_minimap;
 
@@ -134,5 +133,8 @@ void	go_west(t_game *game);
 void	go_north(t_game *game);
 void	go_south(t_game *game);
 void	rotate_right(t_player *p);
+int		check_map_surrounded(t_game *game);
+void	ft_exit(char *str);
+int	len_2d_into(char **s);
 
 #endif

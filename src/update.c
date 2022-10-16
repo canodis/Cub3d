@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/15 17:48:31 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/16 14:44:12 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	draw_vertical(t_game *game, int x, int side, int y)
 {
 	while (++y < screenHeight)
 	{
-		game->draw->tex_y = (int)game->draw->tex_pos & 63;
+		game->draw->tex_y = (int)game->draw->tex_pos;
 		if (y < game->draw->draw_s)
 			game->draw->color = game->tex->ceilingc;
 		else if (y > game->draw->draw_e)
@@ -47,7 +47,7 @@ int	update(t_game *game)
 	int		stepX;
 	int		stepY;
 	int		side;
-
+	
 	x = -1;
 	movements(game);
 	while(++x < screenWidth)
@@ -60,7 +60,7 @@ int	update(t_game *game)
 			game->draw->wall_x = game->pdata->pos_y + game->ray->wall_dist * game->ray->ray_diry;
 		else
 			game->draw->wall_x = game->pdata->pos_x + game->ray->wall_dist * game->ray->ray_dirx;
-		game->draw->wall_x -= floor((game->draw->wall_x));
+		game->draw->wall_x -= (int)game->draw->wall_x;
 		calculate_textures(game, side);
 		draw_vertical(game, x, side, -1);
 	}
