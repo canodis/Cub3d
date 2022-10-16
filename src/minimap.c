@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:55:08 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 15:30:26 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/16 15:56:49 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	reset_values(t_game *game)
 
 static void	render_minimap(t_game *game, int color, int pixels_to_draw)
 {
-	game->minimap->px = game->minimap->x * pixels_to_draw;
 	int	i;
 
+	game->minimap->px = game->minimap->x * pixels_to_draw;
 	i = 0;
 	while (i < pixels_to_draw - 1)
 	{
 		game->image->addr[game->minimap->py
-			* screenWidth + game->minimap->px] = color;
+			* SCREEN_WIDTH + game->minimap->px] = color;
 		game->minimap->px++;
 		i++;
 	}
@@ -50,7 +50,7 @@ static void	draw_minimap(t_game *game, int pixels_to_draw)
 		render_minimap(game, 0x00FF0000, pixels_to_draw);
 }
 
-void	minimap(t_game *game)
+void	put_image(t_game *game)
 {
 	int	pixels_to_draw;
 
@@ -71,4 +71,5 @@ void	minimap(t_game *game)
 			}
 		}
 	}
+	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
 }

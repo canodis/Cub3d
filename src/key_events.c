@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:53:46 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/15 17:46:28 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/16 15:48:17 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void	rotate_cam(t_game *game)
 {
-	double		oldDirX;
-	double		oldPlaneX;
+	double		old_dirx;
+	double		old_planex;
 	t_player	*p;
 
 	p = game->pdata;
 	if (game->keys->left_key)
 	{
-		oldDirX = p->dir_x;
+		old_dirx = p->dir_x;
 		p->dir_x = p->dir_x * cos(p->rot_speed) - p->dir_y * sin(p->rot_speed);
-		p->dir_y = oldDirX * sin(p->rot_speed) + p->dir_y * cos(p->rot_speed);
-		oldPlaneX = p->plane_x;
+		p->dir_y = old_dirx * sin(p->rot_speed) + p->dir_y * cos(p->rot_speed);
+		old_planex = p->plane_x;
 		p->plane_x = p->plane_x * cos(p->rot_speed)
 			- p->plane_y * sin(p->rot_speed);
-		p->plane_y = oldPlaneX * sin(p->rot_speed)
+		p->plane_y = old_planex * sin(p->rot_speed)
 			+ p->plane_y * cos(p->rot_speed);
 	}
 	if (game->keys->right_key)
@@ -40,7 +40,6 @@ int	key_press(int keycode, t_game *game)
 	{
 		mlx_destroy_window(game->mlx, game->window);
 		free_all(game);
-		// while (1);
 		exit(0);
 	}
 	if (keycode == 13)

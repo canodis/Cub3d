@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 14:44:12 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/16 15:56:50 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	draw_vertical(t_game *game, int x, int side, int y)
 {
-	while (++y < screenHeight)
+	while (++y < SCREEN_HEIGHT)
 	{
 		game->draw->tex_y = (int)game->draw->tex_pos;
 		if (y < game->draw->draw_s)
@@ -37,34 +37,35 @@ static void	draw_vertical(t_game *game, int x, int side, int y)
 					* game->draw->tex_y + game->draw->tex_x];
 			game->draw->tex_pos += game->draw->step;
 		}
-		game->image->addr[y * screenWidth + x] = game->draw->color;
+		game->image->addr[y * SCREEN_WIDTH + x] = game->draw->color;
 	}
 }
 
 int	update(t_game *game)
 {
 	int		x;
-	int		stepX;
-	int		stepY;
+	int		step_x;
+	int		step_y;
 	int		side;
-	
+
 	x = -1;
 	movements(game);
-	while(++x < screenWidth)
+	while (++x < SCREEN_WIDTH)
 	{
 		calculate_ray(game, x);
-		calculate_steps(game, &stepX, &stepY);
-		hit_check(game, &side, stepX, stepY);
+		calculate_steps(game, &step_x, &step_y);
+		hit_check(game, &side, step_x, step_y);
 		calculate_pixels(game);
 		if (side == 0)
-			game->draw->wall_x = game->pdata->pos_y + game->ray->wall_dist * game->ray->ray_diry;
+			game->draw->wall_x = game->pdata->pos_y
+				+ game->ray->wall_dist * game->ray->ray_diry;
 		else
-			game->draw->wall_x = game->pdata->pos_x + game->ray->wall_dist * game->ray->ray_dirx;
+			game->draw->wall_x = game->pdata->pos_x
+				+ game->ray->wall_dist * game->ray->ray_dirx;
 		game->draw->wall_x -= (int)game->draw->wall_x;
 		calculate_textures(game, side);
 		draw_vertical(game, x, side, -1);
 	}
-	minimap(game);
-	mlx_put_image_to_window(game->mlx, game->window, game->image->img, 0, 0);
+	put_image(game);
 	return (0);
 }

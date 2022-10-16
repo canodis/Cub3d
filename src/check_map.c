@@ -1,34 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/16 15:59:48 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/16 16:26:55 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-void	*convert_xpm(t_game *game, char *path, void *free_item1)
+void	set_playerpos(t_game *game)
 {
-	int	rand;
+	int		y;
+	int		x;
+	bool	onetime;
 
-	free(free_item1);
-	return (mlx_xpm_file_to_image((game)->mlx, path, &rand, &rand));
-}
-
-void	ft_exit(char *str)
-{
-	printf("%s",str);
-	exit(1);
-}
-
-char *ft_read_map(int fd)
-{
-	int		rd_bytes;
-	char	map[2];
-	char	*value;
-
-	value = NULL;
-	rd_bytes = 1;
-	while (rd_bytes != 0)
+	onetime = false;
+	y = -1;
+	while (game->map[++y])
 	{
-		rd_bytes = read(fd, map, 1);
-		map[rd_bytes] = '\0';
-		value = ft_str_join(value, map);
+		x = -1;
+		while (game->map[y][++x])
+		{
+			if (check_player(game, game->map[y][x]))
+			{
+				game->pdata->pos_x = x + 0.5f;
+				game->pdata->pos_y = y + 0.5f;
+				onetime = true;
+				break ;
+			}
+		}
+		if (onetime)
+			break ;
 	}
-	return (value);
 }
 
 bool	anything(char *s1, char *s2)
@@ -85,125 +92,36 @@ char	*fill_map(char **str, int x, int *y, t_game *game)
 			result[idx++] = '\n';
 	}
 	result[idx] = '\0';
-	printf("%s", result);
-	exit(31);
 	return (result);
-}
-
-void	get_adress(t_game *game)
-{
-	int	a;
-
-	game->tex->ea->addr =  (int *)mlx_get_data_addr(game->tex->ea->img, &a, &a, &a);
-	game->tex->we->addr =  (int *)mlx_get_data_addr(game->tex->we->img, &a, &a, &a);
-	game->tex->no->addr =  (int *)mlx_get_data_addr(game->tex->no->img, &a, &a, &a);
-	game->tex->so->addr =  (int *)mlx_get_data_addr(game->tex->so->img, &a, &a, &a);
 }
 
 void	map_inspection(char *str, int idx, int idy, t_game *game)
 {
-	char	**double_input;
-	char	**split;
-	int		y;
-	char	*temp;
-	int		map_y;
+	t_info	info;
 
-	y = -1;
-	double_input = ft_split(str, '\n');
-	map_y = find_double_array_len(double_input);
-	while (++idy < map_y)
+	info.y = -1;
+	info.double_input = ft_split(str, '\n');
+	info.map_y = find_double_array_len(info.double_input);
+	while (++idy < info.map_y)
 	{
-		split = ft_split(double_input[idy], ' ');
-		if (!ft_strcmp(split[0], "NO") && split[1])
-			game->tex->no->img = convert_xpm(game, split[1], game->tex->no->img);
-		else if (!ft_strcmp(split[0], "SO") && split[1])
-			game->tex->so->img = convert_xpm(game, split[1], game->tex->so->img);
-		else if (!ft_strcmp(split[0], "WE") && split[1])
-			game->tex->we->img = convert_xpm(game, split[1], game->tex->we->img);
-		else if (!ft_strcmp(split[0], "EA") && split[1])
-			game->tex->ea->img = convert_xpm(game, split[1], game->tex->ea->img);
-		else if (!ft_strcmp(split[0], "F") && split[1])
-			game->tex->floorc = get_color(split[1]);
-		else if (!ft_strcmp(split[0], "C") && split[1])
-			game->tex->ceilingc = get_color(split[1]);
-		else if (split[0][0] >= '0' && split[0][0] <= '9' && y == -1)
+		info.split = ft_split(info.double_input[idy], ' ');
+		if (checkmap_proccess(game, &info))
+			;
+		else if (info.split[0][0] >= '0'
+			&& info.split[0][0] <= '9' && info.y == -1)
 		{
-			temp = fill_map(&double_input[idy], -1, &y, game);
-			game->map = ft_split(temp, '\n');
-			printf("%s\n", temp);
-			exit(0);
-			free(temp);
+			info.temp = fill_map(&info.double_input[idy], -1, &info.y, game);
+			game->map = ft_split(info.temp, '\n');
+			free(info.temp);
+			set_playerpos(game);
 			check_map_surrounded(game);
-			y = 0;
+			info.y = 0;
 		}
-		if (split || split[0])
-			free_2d_array(split);
+		if (info.split || info.split[0])
+			free_2d_array(info.split);
 	}
-	free_2d_array(double_input);
+	free_2d_array(info.double_input);
 	get_adress(game);
-}
-
-bool	check_player(t_game *game, char p)
-{
-	if (p == 'E')
-	{
-		game->pdata->dir_x = 0.00;
-		game->pdata->dir_y = 1.00;
-		game->pdata->plane_x = 0.66;
-		game->pdata->plane_y = 0;
-		return (true);
-	}
-	else if (p == 'W')
-	{
-		game->pdata->dir_x = 0.00;
-		game->pdata->dir_y = -1.00;
-		game->pdata->plane_x = -0.66;
-		game->pdata->plane_y = 0;
-		return (true);
-	}
-	else if (p == 'S')
-	{
-		game->pdata->dir_x = -1.00;
-		game->pdata->dir_y = 0.00;
-		game->pdata->plane_x = 0;
-		game->pdata->plane_y = 0.66;
-		return (true);
-	}
-	else if (p == 'N')
-	{
-		game->pdata->dir_x = 1.00;
-		game->pdata->dir_y = 0.00;
-		game->pdata->plane_x = 0;
-		game->pdata->plane_y = -0.66;
-		return (true);
-	}
-	return (false);
-}
-
-void	set_playerpos(t_game *game)
-{
-	int		y;
-	int		x;
-	bool	onetime;
-
-	onetime = false;
-	y = -1;
-	while (game->map[++y])
-	{
-		x = -1;
-		while (game->map[y][++x])
-		{
-			if (check_player(game, game->map[y][x]))
-			{
-				game->pdata->pos_x = x + 0.5f;
-				game->pdata->pos_y = y + 0.5f;
-				onetime = true;
-				break;
-			}
-		}
-		if (onetime)
-			break;
-	}
 }
 
 bool	check_map(t_game *game, char *str)
@@ -222,6 +140,5 @@ bool	check_map(t_game *game, char *str)
 	map_inspection(map, 0, -1, game);
 	close(fd);
 	free(map);
-	set_playerpos(game);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/16 15:43:12 by rtosun            #+#    #+#             */
+/*   Updated: 2022/10/16 16:26:05 by rtosun           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -10,10 +22,10 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define screenWidth 480
-# define screenHeight 360
+# define SCREEN_WIDTH 480
+# define SCREEN_HEIGHT 360
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	int		*addr;
 }				t_data;
@@ -103,6 +115,13 @@ typedef struct s_game
 	char		**map;
 }	t_game;
 
+typedef struct s_info {
+	char	**double_input;
+	char	**split;
+	int		y;
+	char	*temp;
+	int		map_y;
+}	t_info;
 
 int		ft_atoi_base(const char *str);
 void	init_all(t_game *game);
@@ -126,7 +145,7 @@ int		get_color(char *str);
 void	init_keys(t_game *game);
 void	init_textures(t_game *game);
 void	init_minimap(t_game *game);
-void	minimap(t_game *game);
+void	put_image(t_game *game);
 void	free_all(t_game *game);
 void	go_east(t_game *game);
 void	go_west(t_game *game);
@@ -135,6 +154,11 @@ void	go_south(t_game *game);
 void	rotate_right(t_player *p);
 int		check_map_surrounded(t_game *game);
 void	ft_exit(char *str);
-int	len_2d_into(char **s);
+int		len_2d_into(char **s);
+void	*convert_xpm(t_game *game, char *path, void *free_item1);
+void	get_adress(t_game *game);
+char	*ft_read_map(int fd);
+bool	check_player(t_game *game, char p);
+bool	checkmap_proccess(t_game *game, t_info *info);
 
 #endif

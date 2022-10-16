@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:28:32 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/15 17:47:46 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:16:55 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	init_mlx(t_game *game)
 	int	a;
 
 	game->mlx = mlx_init();
-	game->window = mlx_new_window(game->mlx, screenWidth, screenHeight, "c3");
+	game->window = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "c3");
 	game->image = malloc(sizeof(t_data));
-	game->image->img = mlx_new_image(game->mlx, screenWidth, screenHeight);
+	game->image->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->image->addr = (int *)mlx_get_data_addr(game->image->img,
 			&a, &a, &a);
 }
