@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:26:43 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 15:29:07 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 00:26:31 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void	init_textures(t_game *game)
 	game->tex->we = malloc(sizeof(t_data));
 	game->tex->no = malloc(sizeof(t_data));
 	game->tex->so = malloc(sizeof(t_data));
-	game->tex->ea->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/brick.xpm", &a, &a);
-	game->tex->we->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/brick.xpm", &a, &a);
-	game->tex->no->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/brick.xpm", &a, &a);
-	game->tex->so->img = mlx_xpm_file_to_image(game->mlx,
-			"sprites/brick.xpm", &a, &a);
 	game->tex->ceilingc = 0x33ccff;
 	game->tex->floorc = 0x33cc33;
 }

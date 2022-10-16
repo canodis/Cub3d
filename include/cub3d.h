@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:43:12 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 16:26:05 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 00:24:31 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 
-# define SCREEN_WIDTH 480
-# define SCREEN_HEIGHT 360
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
 
 typedef struct s_data {
 	void	*img;

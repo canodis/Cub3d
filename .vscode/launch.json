@@ -8,8 +8,8 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "/Users/rtosun/Desktop/Cub3d/cub3d",
-            "args": ["maps/2.cub"],
+            "program": "/Users/rtosun/Desktop/cub3devolartion/cub3d",
+            "args": ["maps/1.cub"],
             "cwd": "${workspaceFolder}"
         }
     ]

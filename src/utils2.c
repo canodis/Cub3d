@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:57:44 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 15:57:42 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 00:47:59 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	get_color(char *str)
 
 void	free_all(t_game *game)
 {
+	mlx_destroy_window(game->mlx, game->window);
 	free(game->draw);
 	free(game->image->addr);
 	free(game->image->img);

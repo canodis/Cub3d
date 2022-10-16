@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 15:59:53 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 16:27:55 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 00:42:20 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	*convert_xpm(t_game *game, char *path, void *free_item1)
 {
 	int	rand;
 
-	free(free_item1);
 	return (mlx_xpm_file_to_image((game)->mlx, path, &rand, &rand));
 }
 

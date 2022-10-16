@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:53:46 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 15:48:17 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 00:27:05 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	key_press(int keycode, t_game *game)
 {
 	if (keycode == 53)
 	{
-		mlx_destroy_window(game->mlx, game->window);
 		free_all(game);
 		exit(0);
 	}
