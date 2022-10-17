@@ -6,7 +6,7 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 12:25:58 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 17:38:15 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 06:48:24 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,13 @@ static void	draw_vertical(t_game *game, int x, int side, int y)
 		else
 		{
 			if (side == 0 && game->ray->ray_dirx < 0)
-				game->draw->color = game->tex->ea->addr[game->draw->tex_h
-					* game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->ea->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
 			else if (side == 0 && game->ray->ray_dirx >= 0)
-				game->draw->color = game->tex->so->addr[game->draw->tex_h
-					* game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->so->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
 			if (side == 1 && game->ray->ray_diry < 0)
-				game->draw->color = game->tex->no->addr[game->draw->tex_h
-					* game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->no->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
 			else if (side == 1 && game->ray->ray_diry >= 0)
-				game->draw->color = game->tex->we->addr[game->draw->tex_h
-					* game->draw->tex_y + game->draw->tex_x];
+				game->draw->color = game->tex->we->addr[game->draw->tex_h * game->draw->tex_y + game->draw->tex_x];
 			game->draw->tex_pos += game->draw->step;
 		}
 		game->image->addr[y * SCREEN_WIDTH + x] = game->draw->color;
@@ -57,11 +53,9 @@ int	update(t_game *game)
 		hit_check(game, &side, step_x, step_y);
 		calculate_pixels(game);
 		if (side == 0)
-			game->draw->wall_x = game->pdata->pos_y
-				+ game->ray->wall_dist * game->ray->ray_diry;
+			game->draw->wall_x = game->pdata->pos_y + game->ray->wall_dist * game->ray->ray_diry;
 		else
-			game->draw->wall_x = game->pdata->pos_x
-				+ game->ray->wall_dist * game->ray->ray_dirx;
+			game->draw->wall_x = game->pdata->pos_x + game->ray->wall_dist * game->ray->ray_dirx;
 		game->draw->wall_x -= (int)game->draw->wall_x;
 		calculate_textures(game, side);
 		draw_vertical(game, x, side, -1);

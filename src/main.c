@@ -6,11 +6,17 @@
 /*   By: rtosun <rtosun@student.42kocaeli.com.tr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:09:01 by rtosun            #+#    #+#             */
-/*   Updated: 2022/10/16 23:59:05 by rtosun           ###   ########.fr       */
+/*   Updated: 2022/10/17 06:50:06 by rtosun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static int	exit_game(t_game *game)
+{
+	free_all(game);
+	exit(0);
+}
 
 static bool	ft_namecheck(char *str, char *find)
 {
@@ -32,6 +38,7 @@ int	main(int ac, char **av)
 		check_map(&game, av[1]);
 		mlx_hook(game.window, 2, 1L << 0, key_press, &game);
 		mlx_hook(game.window, 3, 1L << 1, key_release, &game);
+		mlx_hook(game.window, 17, 0, exit_game, &game);
 		mlx_do_sync(game.mlx);
 		mlx_loop_hook(game.mlx, update, &game);
 		mlx_loop(game. mlx);
